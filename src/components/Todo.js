@@ -1,49 +1,28 @@
-// FontAwesome einbinden
-import { FaRegTrashAlt } from "react-icons/fa";
-import { FaRegSquare} from "react-icons/fa";
-import { FaRegCheckSquare } from "react-icons/fa";
+//Lösung 2.4
 
+import { FaRegTrashAlt, FaRegCheckSquare } from "react-icons/fa";
 
-//useRef-Hook für Datenabfrage einfügen
-import { useRef, useState } from "react";
+const Todo = ({title, todos, setTodos, todoId, done}) => {
 
-
-
-// state hook muss hier auch definiert werden
-const Todo = ({title, todos, setTodos}) => {
-
-    // den Hoock in einer const definieren
-    const todoDeleteRef = useRef();
-    const todoUndoneRef = useRef();
-    const todoDoneRef = useRef();
-
-
-
-    // onKlick-Funktion definieren --> sie muss im selben element wie der useRef sein
-    const handleUndoneClick = () => {
-        console.log(todoUndoneRef.current.children[0]);
-        // console.log(todoDeleteRef.current);
-    }
-    const handleDoneClick = () => {
-        console.log(todoDoneRef.current.children[0]);
-    }
-    const handleDeleteClick = () => {
-        console.log(todoDeleteRef.current.children[0]);
+    const toggleTodo = () => {
+        setTodos(
+            todos.map(
+                e => { if (e.id === todoId) e.done =!e.done; return e }
+            )
+        );
+        console.log(toggleTodo);
     }
 
+    const deleteTodo = id => {
+        setTodos(todos.filter(e => e.id !== todoId))
+    }
 
-    
-
-    return (
-        <div className="todo">
-            {title} 
-            <div className="img-wrapper"  >
-                <span className="undone" ref={todoUndoneRef}><FaRegSquare className="todo-undone" onClick={handleUndoneClick}/></span>
-                <span className="done" ref={todoDoneRef}><FaRegCheckSquare className="todo-done" onClick={handleDoneClick}/></span>
-                <span className="delete>"  ref={todoDeleteRef}><FaRegTrashAlt className="input-delete" onClick={handleDeleteClick}/></span>
-            </div> 
-        </div>
-    );
+  return (
+    // <div className="todoUndone">
+    <div className={ done === true ? "todoDone" : "todoUndone" }>
+      {title} <FaRegCheckSquare onClick={toggleTodo} /> <FaRegTrashAlt onClick={deleteTodo} />
+    </div>
+  );
 }
 
 export default Todo;
