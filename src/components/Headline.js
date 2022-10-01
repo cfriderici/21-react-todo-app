@@ -1,11 +1,7 @@
-//Lösung 2.4
-
-const Headline = ({variant}) => {
+const Headline = () => {
     return (
-      <div>
-        <h1 className="headline">Awesome Todo</h1>
-      </div>
-    )
-  }
-  
-  export default Headline;
+        <h1 className="headline">ToDo-App</h1>
+    );
+}
+
+export default Headline;

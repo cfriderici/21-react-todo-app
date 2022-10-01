@@ -1,52 +1,129 @@
-/* Lösung 2.4 */
+* {
+    box-sizing: border-box;
+}
 
-.app {
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: darkseagreen;
+}
+
+.img-wrapper{
+    /* background-color: rgba(250, 250, 0, 0.2); */
+    display: flex;
+    padding: 2px 2px 2px 10px;
+}
+.img-wrapper:hover {
+    cursor: pointer;
+}
+
+.App{
+    /* background-color: rgba(250, 250, 0, 0.2); */
+    background-color: whitesmoke;
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
-  
-  .headline {
-    font-family: Arial, Helvetica, sans-serif;
-    color: #ffffff;
-    position: relative;
-    text-transform: uppercase;
-    text-shadow: -15px 5px 20px #bfbcba;
-    letter-spacing: -0.05em;
-    user-select: none;
-    text-transform: uppercase;
-    font-size: 3em;
-    transition: all 0.25s ease-out;
-  }
-  
-  .headline:hover {
-    text-shadow: -16px 6px 15px #E27D60;
-  }
-  
-  .input {
-    margin: 15px;
+    width: 50vw;
+    margin: 0 auto;
+    border-radius: 8px;
+    box-shadow: 1px 1px 4px gray;
+}
+
+.headline {
+    color: white;
+    text-shadow: 1px 1px 4px gray; ;
+    width: 50%;
+    text-align: center;
+}
+
+/* Input */
+.input-wrapper {
+    background-color: white;
+    width: 50%;
     display: flex;
     flex-direction: row;
-  }
-  
-  .input > div {
-    display: flex; 
+    justify-content: space-between;
     align-items: center;
-    padding: 10px;
-  }
-  
-  .todoUndone {
-    font-family: Arial, Helvetica, sans-serif;
-    color: #41B3A3;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    padding: 15px;
-    margin-bottom: 10px;
-  }
+    border-radius: 4px;
+    box-shadow: inset 1px 1px 4px gray;
+    padding: 6px;
+    margin-bottom: 30px;
+}
+.input-field {
+    background-color: transparent;
+    /* background-color: rgba(0, 250, 0, 0.2); */
+    width: 100%;
+    border: none;
+    outline: none;
+}
+.input-img {
+    /* background-color: rgba(0, 250, 0, 0.2); */
+}
 
-  .todoDone {
-    font-family: Arial, Helvetica, sans-serif;
-    color: red;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    padding: 15px;
-    margin-bottom: 10px;
-  }
+
+/* ToDos */
+.todo-wrapper {
+    /* background-color: rgba(250, 250, 0, 0.2); */
+    width: 50%;
+    margin-bottom: 30px;
+}
+
+.todo {
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 14px;
+    border-radius: 4px;
+    box-shadow: 1px 1px 4px gray;
+    padding: 4px;
+}
+.todo:last-of-type {
+    margin-bottom: 0;
+}
+
+.todo-undone {
+    text-decoration: none;
+    color: black;
+}
+.todo-done {
+    text-decoration: line-through;
+    color: gray;
+}
+
+.img-wrapper > span {
+    /* background-color: red; */
+    /* border: 1px solid black; */
+    margin-right: 4px;
+}
+.img-wrapper > span:last-child {
+    margin: 0;
+}
+
+/* .square {
+    background-color: rgba(250, 0, 0, 0.2);
+}
+.check {
+    background-color: rgba(0, 250, 0, 0.2);
+}
+.trash {
+    background-color: rgba(0, 0, 250, 0.2);
+} */
+
+img.undone {
+    display: inline;
+}
+.img.done {
+    display: none;
+}
+
+
+
+
+
+
+
+.footer {
+    /* background-color: rgba(250, 0, 0, 0.2); */
+    margin-bottom: 40px;
+}
+
+
