@@ -1,6 +1,11 @@
 import { FaRegPlusSquare } from "react-icons/fa";
+
+// uuid einbinden für einzigartige ids in .json
 import { v4 as uuidv4 } from 'uuid';
 
+// Styled Components
+import styled from "styled-components";
+import StyledImgWrapper from "./StyledImgWrapper";
 
 // REF-HOOK in der jeweiligen Komponente importieren 
 // (im Gegensatz zum State-Hook)
@@ -25,7 +30,7 @@ const Input = ({ todos, setTodos }) => {
     // Bei Aufruf der const (newTodoItem)
     // fügt die setter-function (setTodos) dem array des aktuellen states (todos) 
     // mittels der push-Methode ([...]) des array-destructurings 
-    // ein neues Objekt hinzu (,{ ... })
+    // ein neues Objekt hinzu (,{ ... })  --> Spread-Operator hinter das existierende aarray 
     // mit dem Text des aktuellen Inputs (todoNameRef.current.value) (REF)
     const newTodoItem = () => {
         if (todoNameRef.current.value !== "") {
@@ -36,7 +41,11 @@ const Input = ({ todos, setTodos }) => {
                     done: false
                 }
             ])
+            //Inputfeld leeren
             todoNameRef.current.value = "";
+
+            //neuesn SATE im LOCAL STORAGE speichern mit useEffect
+
         }
       }
 
@@ -62,17 +71,44 @@ const Input = ({ todos, setTodos }) => {
     
     
     return (
-        <div className="input-wrapper">
+        <StyledInputWrapper>
             {/* 
                 Dieses Element als Anker für die addclick- und keypress-Aktion 
                 Diese nur auf input-elementen möglich 
             */}
-            <input className="input-field" placeholder="neues ToDo eingeben" ref={todoNameRef} onKeyDown={handleAddKeyPress}></input>
-            <div className="img-wrapper">
-                <FaRegPlusSquare className="input-img" onClick={handleAddClick} />
-            </div>
-        </div>
+            <StyledInput placeholder="neues ToDo eingeben" ref={todoNameRef} onKeyDown={handleAddKeyPress}></StyledInput>
+            
+            <StyledImgWrapper> 
+                <FaRegPlusSquare onClick={handleAddClick} /> 
+            </StyledImgWrapper>
+
+        </StyledInputWrapper>
     );
 }
 
 export default Input;
+
+
+// ------ STYLED COMPONENTS ------  //
+
+const StyledInput = styled.input`
+    background-color: transparent;
+    /* background-color: rgba(0, 250, 0, 0.2); */
+    width: 100%;
+    border: none;
+    outline: none;
+`
+
+const StyledInputWrapper = styled.div`
+    background-color: white;
+    /* background-color: rgba(0, 250, 0, 0.4); */
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 4px;
+    box-shadow: inset 1px 1px 4px gray;
+    padding: 6px;
+    margin-bottom: 30px;
+`

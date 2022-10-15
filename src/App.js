@@ -2,45 +2,53 @@ import './App.css';
 
 // components einbinden
 import Headline from './components/Headline';
-import Todo from './components/Todo';
-import Input from './components/Input';
+import Home from './components/Home';
+// import Todo from './components/Todo';
+// import Input from './components/Input';
 import Footer from './components/Footer';
 
-// uuid einbinden für einzigartige ids in .json
-import { v4 as uuidv4 } from 'uuid';
+// Styled Components importieren
+import styled from "styled-components";
 
-// STATE-HOOK einbinden (um die Eingabe aus Input nach Todo zu übergeben --> in function dann eine const mit State definnieren)
-import { useState } from 'react';
+//Browser-Router importieren
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
+// STATE-HOOK + EFFECT-HOOK einbinden 
+// um die Eingabe aus Input nach Todo zu übergeben 
+// in function dann eine const mit SATTE definnieren
+import { useState, useEffect } from 'react';
 
 
 // ----------------------------------------------------------------------  //
-
 // Array einbinden
-const todoArray =[
-  {
-    id: uuidv4(),
-    text: "Ein ToDo",
-    done: false
-  },
-  {
-    id: uuidv4(),
-    text: "Noch ein ToDo",
-    done: false
-  },
-  {
-    id: uuidv4(),
-    text: "Und noch ein ToDo",
-    done: false
-  },
-  {
-  id: uuidv4(),
-  text: "Und ein gaaaanz langes ToDo",
-  done: false
-  }
-]
-
-
+// const todoArray =[
+//   {
+//     id: uuidv4(),
+//     text: "Ein ToDo",
+//     done: false
+//   },
+//   {
+//     id: uuidv4(),
+//     text: "Noch ein ToDo",
+//     done: false
+//   },
+//   {
+//     id: uuidv4(),
+//     text: "Und noch ein ToDo",
+//     done: false
+//   },
+//   {
+//   id: uuidv4(),
+//   text: "Und ein gaaaanz langes ToDo",
+//   done: false
+//   }
+// ]
 // ----------------------------------------------------------------------  //
+
+
+// Einen Key für den LOCAL STORAGE definieren (EFFECT-HOOK)
+//warum Großbuchstaben --> Conventionn: const immer GHroß (schreibweise bei react hooks ist Ausnahme)
+const LOCAL_STORAGE_KEY = "local_storage_todos"
 
 
 // App
@@ -50,41 +58,79 @@ function App() {
   // State als const definieren (todos)
   // State eine Setter-Funktion zuweisen (setTodos) 
   // ( State selber darf nur über die Setter-Funktion verändert werden !!! )
-  // State soll als Startwert unseren todoArray haben (= useState(todoArray))
-  const [todos, setTodos] = useState(todoArray);
+  // State soll als Startwert unseren todoArray haben ( = useState(todoArray); )
+  // 
+  // Für EFFECT-HOOK wird kein Startwert für den STATE übergeben, 
+  // sondern er ist undefined ( = useState(); )
+  const [todos, setTodos] = useState();
+
+  // EFFEKT-HOOK
+  // const zum Speichern eines neuen Elements in den LOCAL-STORAGE für das Array (todoArray) definieren  ?!?
+    const saveTodosToLocalStorage = todoArray => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todoArray));
+  }
+
+  // EFFECT-HOOK
+  // const zum Laden des neuen Arrays  ?!? 
+  // Zu Beginn undefined --> weil noch kein LOCAL_STORAGE_KEY existiert
+  const loadTodosFromLocalStorage = () => {
+    if (localStorage.getItem(LOCAL_STORAGE_KEY)  !== null)
+      return  JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
+    else return [];
+  }
+
+  //wenn Daten in STAGE vorhanden (nicht undefined)
+  useEffect( () => {
+    if (todos) saveTodosToLocalStorage(todos);
+  }, [todos] );
+
+  //Einmaliges laden des STORAGE bei erstem Auffruf der App
+  useEffect( () => {
+    const storage = loadTodosFromLocalStorage();
+    setTodos(storage);
+  }, [] ); 
+
+
 
   return (
-    <div className="App">
+    <StyledAppWrapper>
 
       <Headline />
 
-      {/* 
-      STATE-HOOK und SETTER-FUNKTION in die Input-Komponente durchreichen
-      state und setter als property übergeben: (todos) / (setTodos)
-      den properties einen Wert und eine Setter-Funktion zuweisen: (={todos}) / (={setTodos})
-      --> Das Input-Element erhält als property den oben definierten state todos mit dem aktuellen Inhalt des todoArrays
-      */}
-      <Input todos={todos} setTodos={setTodos} />
-      
-      <div className='todo-wrapper'>
-
-        {/*
-        STATE-HOOK der aktuelle state (todos) wird mit der .map-Funktion itteriert
-        und es werden pro Element (e) folgende properties übergeben:
-        Bei der property key kann ich destructuering nicht anwenden (weil festes react-Element) 
-        --> daher wird die Id nochmal über todoID übergeben 
-       */}
-        {
-          todos.map(e => (
-            <Todo key={e.id} todoId={e.id} todoTitle={e.text} todoDone={e.done} todos={todos} setTodos={setTodos} />
-          ))
-        }
-      </div>
-
+      <BrowserRouter>
+        <Routes>
+          
+          <Route path="/" element={ <Home todos={todos} setTodos={setTodos} />} />
+          <Route path="/test" element={ <div>Test</div> } />
+          
+        </Routes>
+      </BrowserRouter>
+   
       <Footer /> 
 
-    </div>
+    </StyledAppWrapper>
   );
 }
 
 export default App;
+
+
+// ------ STYLED COMPONENTS ------  //
+
+const StyledAppWrapper = styled.div `
+    /* background-color: rgba(250, 250, 0, 0.2); */
+    background-color: whitesmoke;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50vw;
+    margin: 0 auto;
+    border-radius: 8px;
+    box-shadow: 1px 1px 4px gray;
+`
+
+// const StyledTodoWrapper = styled.div`
+//     /* background-color: rgba(0, 250, 250, 0.4); */
+//     width: 50%;
+//     margin-bottom: 30px;
+// `
