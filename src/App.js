@@ -123,10 +123,29 @@ const StyledAppWrapper = styled.div `
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 50vw;
+    /* width: 100vw; */
     margin: 0 auto;
     border-radius: 8px;
     box-shadow: 1px 1px 4px gray;
+
+    @media only screen and (max-width: 600px) {
+    } 
+
+    @media only screen and (min-width: 600px) {
+      /* width: 100vw; */
+    } 
+
+    @media only screen and (min-width: 768px) {
+      width: 75vw;
+    } 
+
+    @media only screen and (min-width: 992px) {
+      width: 50vw;
+    }
+
+    @media only screen and (min-width: 1200px) {
+      
+    }
 `
 
 // const StyledTodoWrapper = styled.div`
@@ -134,3 +153,4 @@ const StyledAppWrapper = styled.div `
 //     width: 50%;
 //     margin-bottom: 30px;
 // `
+
