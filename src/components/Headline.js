@@ -22,6 +22,10 @@ const StyledH1 = styled.h1`
     /* background-color: rgba(250, 0, 0, 0.2); */
     color: white;
     text-shadow: 1px 1px 4px gray; ;
-    width: 50%;
+    width: 80%;
     text-align: center;
+
+@media only screen and (min-width: 992px) {
+    width: 50%;
+}
 `

@@ -3,7 +3,7 @@ import './App.css';
 // components einbinden
 import Headline from './components/Headline';
 import Home from './components/Home';
-// import Todo from './components/Todo';
+import Todo from './components/Todo';
 // import Input from './components/Input';
 import Footer from './components/Footer';
 
@@ -11,7 +11,7 @@ import Footer from './components/Footer';
 import styled from "styled-components";
 
 //Browser-Router importieren
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 
 // STATE-HOOK + EFFECT-HOOK einbinden 
 // um die Eingabe aus Input nach Todo zu übergeben 
@@ -19,34 +19,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
 
-// ----------------------------------------------------------------------  //
-// Array einbinden
-// const todoArray =[
-//   {
-//     id: uuidv4(),
-//     text: "Ein ToDo",
-//     done: false
-//   },
-//   {
-//     id: uuidv4(),
-//     text: "Noch ein ToDo",
-//     done: false
-//   },
-//   {
-//     id: uuidv4(),
-//     text: "Und noch ein ToDo",
-//     done: false
-//   },
-//   {
-//   id: uuidv4(),
-//   text: "Und ein gaaaanz langes ToDo",
-//   done: false
-//   }
-// ]
-// ----------------------------------------------------------------------  //
-
-
-// Einen Key für den LOCAL STORAGE definieren (EFFECT-HOOK)
+//Einen Key für den LOCAL STORAGE definieren (EFFECT-HOOK)
 //warum Großbuchstaben --> Conventionn: const immer GHroß (schreibweise bei react hooks ist Ausnahme)
 const LOCAL_STORAGE_KEY = "local_storage_todos"
 
@@ -98,21 +71,30 @@ function App() {
       <Headline />
 
       <BrowserRouter>
+
         <Routes>
           
-          <Route path="/" element={ <Home todos={todos} setTodos={setTodos} />} />
+          <Route path="/" element={ <Home todos={todos} setTodos={setTodos} /> } />
           <Route path="/test" element={ <div>Test</div> } />
+          <Route path="todo/:id" element={ <Todo todos={todos} setTodos={setTodos}/> } />
           
         </Routes>
+
+        <Link to="/"><Footer /></Link>
+          
       </BrowserRouter>
    
-      <Footer /> 
-
     </StyledAppWrapper>
   );
 }
 
 export default App;
+
+
+
+
+
+
 
 
 // ------ STYLED COMPONENTS ------  //

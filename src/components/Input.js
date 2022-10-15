@@ -102,7 +102,7 @@ const StyledInput = styled.input`
 const StyledInputWrapper = styled.div`
     background-color: white;
     /* background-color: rgba(0, 250, 0, 0.4); */
-    width: 50%;
+    width: 80%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -111,4 +111,8 @@ const StyledInputWrapper = styled.div`
     box-shadow: inset 1px 1px 4px gray;
     padding: 6px;
     margin-bottom: 30px;
+
+@media only screen and (min-width: 992px) {
+    width: 50%;
+}
 `
