@@ -1,6 +1,6 @@
 //lösung 2.4
 
-import "./App.css";
+import "./App.css";   
 
 import { useState } from "react";
 
