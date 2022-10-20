@@ -1,8 +1,5 @@
 import { FaRegPlusSquare } from "react-icons/fa";
 
-// uuid einbinden für einzigartige ids in .json
-import { v4 as uuidv4 } from 'uuid';
-
 // Styled Components
 import styled from "styled-components";
 import StyledImgWrapper from "./StyledImgWrapper";
@@ -14,9 +11,9 @@ import { useRef } from "react";
 
 // ----------------------------------------------------------------------  //
 
-// STATE-HOOK und SETTER-FUNKTION wurden dem Input-Element als propertys in der App übergeben
-// Hier mit object-destructioring einbeinden 
-const Input = ({ todos, setTodos }) => {
+// Hier mit object-destructioring dem Input-Element die Hilfsfunktion (addTodo) 
+// aus dem COSTOM-HOOK einbinden und als property übergeben 
+const Input = ({ todos, setTodos, addTodo }) => {
 
 
     // REF-HOOK in einer const definieren
@@ -26,22 +23,12 @@ const Input = ({ todos, setTodos }) => {
 
 
     // FUNKTION: Neues Todo-Element mittels dem todoArray hizufügen, wenn Input nicht leer ist
-    // STATE-HOOK + REF-HOOK
-    // Bei Aufruf der const (newTodoItem)
-    // fügt die setter-function (setTodos) dem array des aktuellen states (todos) 
-    // mittels der push-Methode ([...]) des array-destructurings 
-    // ein neues Objekt hinzu (,{ ... })  --> Spread-Operator hinter das existierende aarray 
-    // mit dem Text des aktuellen Inputs (todoNameRef.current.value) (REF)
     const newTodoItem = () => {
         if (todoNameRef.current.value !== "") {
-            setTodos([...todos, 
-                {
-                    id: uuidv4(),
-                    text: todoNameRef.current.value,
-                    done: false
-                }
-            ])
-            //Inputfeld leeren
+            
+            //Funktion aus dem CUSTOM HOOCK (useTodos.js) ausführen
+            addTodo(todoNameRef.current.value);
+
             todoNameRef.current.value = "";
 
             //neuesn SATE im LOCAL STORAGE speichern mit useEffect

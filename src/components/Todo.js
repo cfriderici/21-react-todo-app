@@ -13,39 +13,25 @@ import { useParams } from "react-router-dom";
 // TODO-OBJEKT/ELEMENT definieren
 //Alle properties, die ich in App.js den jeweilgen Komponenten übergebe, der enntsprechenden const zuweisen
 //todo für id url abfrage ?!?
-const Todo = ({ todoTitle, todoId, todoDone, todo, todos, setTodos }) => {
+const Todo = ({ todoTitle, todoId, todoDone, todo, todos, setTodos, deleteTodo, toggleTodo }) => {
 
     //USE-HOOCK definieren
     //Parameter der in der App.js im Pfad abgefragt wird (id)
-    const { id } = useParams;
-
-    // FUNKTION 
-    // die Klick-Funktion erhält einen Parameter (Id)    ?!?
-    // die setter-Funktion durchläuft den state (todos) 
-    // die Filter-Methode (filter) schreibt ein neues Array mit den Elementen (e) die NICHT die Id des aktuellen (geklickten) Elements hat 
-    //if-Abfrage für Aufruf über URL sonst Aufruf üebr Home
-    const handleDeleteClick = (e, paramTodoID) => {
-        if (paramTodoID) setTodos(todos.filter(e => e.id !== paramTodoID))
-        else setTodos (todos.filter(e => e.id !== todoId)) 
+    const { id } = useParams();
+    
+    
+    // Die 2 Event-Funktionen (onDeleteTodoClick/onToggleTodoClick) erhalten den Parameter (paramTodoId) zur Identifikation das aktuellen Elements
+    // Bei Klick werden die Funktionen aus dem CUSTOM-HOOK (deleteTodo/toggleTodo) aufgerufgen 
+    // if-Abfrage für Aufruf über URL sonst Aufruf üebr Home
+    const onDeleteTodoClick = (e, paramTodoId) => {
+        if (paramTodoId) deleteTodo(paramTodoId);
+        else deleteTodo (todoId); 
     }  
-
-    //die SETTER-FUNCTION (setTodo) itteriert mit der .map-Methode durch das Array des STATE (todos)
-    //Bei dem Element (e) des Arrays, bei welchem die id die selbe ist, wie die des aktuell geklicktenn Objekts,
-    //soll der Wert des properties(?) done von false auf true oder anders herum geändert werden 
-    const handelToggleClick = (e, paramTodoID) => {
-        if (paramTodoID) setTodos(
-            todos.map(
-                e => { if (e.id === paramTodoID) e.done =!e.done; return e }
-            )
-        );
-        else setTodos(
-            todos.map(
-                e => { if (e.id === todoId) e.done =!e.done; return e }
-            )
-        );
+    const onToggleTodoClick = (e, paramTodoId) => {
+        if (paramTodoId) toggleTodo(paramTodoId);
+        else toggleTodo (todoId);
     }
     
-    console.log(id, todos)
 
     // Wenn der Parameter (id) aus dem USE-HOOK und ein aktueller STATE true sind (also existieren)  
     if (id && todos ) {
@@ -61,9 +47,9 @@ const Todo = ({ todoTitle, todoId, todoDone, todo, todos, setTodos }) => {
             <StyledTodo done={paramTodo.done}>
                 {paramTodo.text} 
                 <StyledImgWrapper>
-                    <FaRegSquare className="square" onClick={e => handelToggleClick(e, paramTodo.id)} /> 
-                    <FaRegCheckSquare className="check" onClick={e => handelToggleClick(e, paramTodo.id)} /> 
-                    <FaRegTrashAlt className="trash" onClick={e => handleDeleteClick(e, paramTodo.id)} /> 
+                    <FaRegSquare className="square" onClick={e => onToggleTodoClick(e, paramTodo.id)} /> 
+                    <FaRegCheckSquare className="check" onClick={e => onToggleTodoClick(e, paramTodo.id)} /> 
+                    <FaRegTrashAlt className="trash" onClick={e => onDeleteTodoClick(e, paramTodo.id)} /> 
                 </StyledImgWrapper> 
             </StyledTodo>
         )} else return <div>nicht gefunden</div>;
@@ -75,9 +61,9 @@ const Todo = ({ todoTitle, todoId, todoDone, todo, todos, setTodos }) => {
             <StyledTodo done={todoDone}>
                 {todoTitle} 
                 <StyledImgWrapper>
-                    <FaRegSquare className="square" onClick={handelToggleClick} /> 
-                    <FaRegCheckSquare className="check" onClick={handelToggleClick} /> 
-                    <FaRegTrashAlt className="trash" onClick={handleDeleteClick} /> 
+                    <FaRegSquare className="square" onClick={onToggleTodoClick} /> 
+                    <FaRegCheckSquare className="check" onClick={onToggleTodoClick} /> 
+                    <FaRegTrashAlt className="trash" onClick={onDeleteTodoClick} /> 
                 </StyledImgWrapper> 
             </StyledTodo>
         );

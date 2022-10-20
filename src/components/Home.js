@@ -1,20 +1,19 @@
 import Todo from './Todo';
 import Input from './Input';
 
-import React, { useState, useEffect } from "react";
-
 import styled from "styled-components";
 
-
-const Home = ({ todos, setTodos }) => {
+//
+const Home = ({ todos, setTodos, addTodo, deleteTodo, toggleTodo }) => {
     return(
         <StyledHomeWrapper>
 
             {/* STATE-HOOK und SETTER-FUNKTION in die Input-Komponente durchreichen
             state und setter als property übergeben: (todos) / (setTodos)
             den properties einen Wert und eine Setter-Funktion zuweisen: (={todos}) / (={setTodos})
-            Das Input-Element erhält als property den oben definierten state todos mit dem aktuellen Inhalt des todoArrays */}
-            <Input todos={todos} setTodos={setTodos} />
+            Das Input-Element erhält als property den oben definierten state todos mit dem aktuellen Inhalt des todoArrays 
+            Auch hier die Hilfsfunktionen aus dem COSTOM-HOOK einbinden (addTodo)*/}
+            <Input todos={todos} setTodos={setTodos} addTodo={addTodo} />
             
             <StyledTodosWrapper>
 
@@ -26,7 +25,7 @@ const Home = ({ todos, setTodos }) => {
                 {
                     todos ?
                     todos.map(e => (
-                        <Todo key={e.id} todoId={e.id} todoTitle={e.text} todoDone={e.done} todo={e} todos={todos} setTodos={setTodos} />
+                        <Todo key={e.id} todoId={e.id} todoTitle={e.text} todoDone={e.done} todo={e} todos={todos} setTodos={setTodos} deleteTodo={deleteTodo} toggleTodo={toggleTodo} />
                     )) : null
                 }
 
