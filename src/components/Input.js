@@ -13,7 +13,7 @@ import { useRef } from "react";
 
 // Hier mit object-destructioring dem Input-Element die Hilfsfunktion (addTodo) 
 // aus dem COSTOM-HOOK einbinden und als property übergeben 
-const Input = ({ todos, setTodos, addTodo }) => {
+const Input = ({ addTodo }) => {
 
 
     // REF-HOOK in einer const definieren

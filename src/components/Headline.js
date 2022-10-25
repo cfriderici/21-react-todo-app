@@ -7,7 +7,6 @@ import styled from "styled-components";
 
 const Headline = () => {
     return (
-        // <h1 className="headline">ToDo-App</h1>
         <StyledH1>ToDo-App</StyledH1>
     );
 }

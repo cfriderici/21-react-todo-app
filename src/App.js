@@ -1,47 +1,50 @@
 import './App.css';
 
-// components einbinden
+// My components 
 import Headline from './components/Headline';
 import Home from './components/Home';
 import Todo from './components/Todo';
 import Footer from './components/Footer';
 
-// Styled Components importieren
-import styled from "styled-components";
+// My Context (CUSTOM-CONTEXT-HOOK)
+import { TodoAppContextProvider } from './providers/TodoAppContext';
 
-//Browser-Router importieren
+// External Components 
+import styled from "styled-components";
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 
-//CUSTOM-HOOK importieren
-import useTodos from './hooks/useTodos';
 
-
-// App
+// Main component
 function App() {
-
-  //CUSTOM-HOOCK deklarieren
-  const [todos, setTodos, addTodo, deleteTodo, toggleTodo] = useTodos();
-
   return (
-    <StyledAppWrapper>
 
-      <Headline />
+    //CONTEXT-HOOK als Komponente bereitstellen durch CONTEXT-PROVIDER
+    //Alle Komponenten in den CONTEXT-HOOK einfügen
+    //Doppelte Klammern weil value ein Objekt ist
+    //Alle props für die Komponenten aus dem CUSTOM-HOOK in value einfügen --> damit sie überall zur Verfügungn stehen --> als Unterobjekte
+    <TodoAppContextProvider>
 
-      <BrowserRouter>
+      <StyledAppWrapper>
 
-        <Routes>
-          
-          <Route path="/" element={ <Home todos={todos} setTodos={setTodos} addTodo={addTodo} deleteTodo={deleteTodo} toggleTodo={toggleTodo} /> } />
-          <Route path="/test" element={ <div>Test</div> } />
-          <Route path="todo/:id" element={ <Todo todos={todos} setTodos={setTodos} deleteTodo={deleteTodo} toggleTodo={toggleTodo} /> } />
-          
-        </Routes>
+        <Headline />
 
-        <Link to="/"><Footer /></Link>
-          
-      </BrowserRouter>
-   
-    </StyledAppWrapper>
+        <BrowserRouter>
+
+          <Routes>
+            
+            <Route path="/" element={ <Home /> } />
+            <Route path="/test" element={ <div>Test</div> } />
+            <Route path="todo/:id" element={ <Todo /> } />
+            
+          </Routes>
+
+          <Link to="/"><Footer /></Link>
+            
+        </BrowserRouter>
+    
+      </StyledAppWrapper>
+
+    </TodoAppContextProvider>
   );
 }
 

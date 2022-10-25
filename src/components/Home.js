@@ -1,10 +1,16 @@
 import Todo from './Todo';
 import Input from './Input';
-
 import styled from "styled-components";
 
-//
-const Home = ({ todos, setTodos, addTodo, deleteTodo, toggleTodo }) => {
+//CUSTOM-CONTEXT-HOOK importieren
+import { useTodoAppContext } from "../providers/TodoAppContext";
+
+
+const Home = () => {
+
+    //CONTEXT-HOOK bereitstellen und konsumieren (useContext)
+    const {todos, setTodos, addTodo } = useTodoAppContext();
+
     return(
         <StyledHomeWrapper>
 
@@ -25,7 +31,7 @@ const Home = ({ todos, setTodos, addTodo, deleteTodo, toggleTodo }) => {
                 {
                     todos ?
                     todos.map(e => (
-                        <Todo key={e.id} todoId={e.id} todoTitle={e.text} todoDone={e.done} todo={e} todos={todos} setTodos={setTodos} deleteTodo={deleteTodo} toggleTodo={toggleTodo} />
+                        <Todo key={e.id} todoId={e.id} todoTitle={e.text} todoDone={e.done} todo={e} />
                     )) : null
                 }
 

@@ -6,6 +6,10 @@ import StyledImgWrapper from "./StyledImgWrapper";
 // Wird benötigt für BrowserRouter --> zum Auslesen von URL-Parametern (USE-HOOK)
 import { useParams } from "react-router-dom";
 
+//CUSTOM-CONTEXT-HOOK importieren
+import { useTodoAppContext } from "../providers/TodoAppContext";
+
+
 
 // ----------------------------------------------------------------------  //
 
@@ -13,7 +17,9 @@ import { useParams } from "react-router-dom";
 // TODO-OBJEKT/ELEMENT definieren
 //Alle properties, die ich in App.js den jeweilgen Komponenten übergebe, der enntsprechenden const zuweisen
 //todo für id url abfrage ?!?
-const Todo = ({ todoTitle, todoId, todoDone, todo, todos, setTodos, deleteTodo, toggleTodo }) => {
+//und CONTEXT-HOOK
+const Todo = ({ todoTitle, todoId, todoDone }) => {
+    const {todos, deleteTodo, toggleTodo } = useTodoAppContext();
 
     //USE-HOOCK definieren
     //Parameter der in der App.js im Pfad abgefragt wird (id)
